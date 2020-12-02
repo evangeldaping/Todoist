@@ -1,10 +1,10 @@
 import React from 'react'
-import { Sidebar } from '../components/Sidebar'
+import { Sidebar } from './Sidebar'
 
 export const Content = () => {
     return (
-        <div>
+        <section>
             <Sidebar />
-        </div>
+        </section>
     )
 }
