@@ -20,11 +20,9 @@ export const Projects = ({ activeValue = null }) => {
                 : 'sidebar__project'
             }
 
-            onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+            onKeyDown={() => {
                 setActive(project.projectId);
                 setSelectedProject(project.projectId);
-                }
             }}
 
             onClick={() => {
