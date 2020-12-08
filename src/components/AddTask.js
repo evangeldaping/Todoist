@@ -4,6 +4,7 @@ import moment from 'moment';
 import { firebase } from '../firebase';
 import { useSelectedProjectValue } from '../context';
 import { ProjectOverlay } from './ProjectOverlay';
+import { TaskDate } from './TaskDate';
 
 export const AddTask = ({
     showAddTaskMain = true,
@@ -12,9 +13,11 @@ export const AddTask = ({
     setShowQuickAddTask,
 }) => {
     const [task, setTask] = useState('');
+    const [taskDate, setTaskDate] = useState('');
     const [project, setProject] = useState('');
     const [showMain, setShowMain] = useState(shouldShowMain);
     const [showProjectOverlay, setShowProjectOverlay] = useState(false);
+    const [showTaskDate, setShowTaskDate] = useState(false);
 
     const { selectedProject } = useSelectedProjectValue();
 
@@ -38,7 +41,7 @@ export const AddTask = ({
             archived: false,
             projectId,
             task,
-            date: collatedDate,
+            date: collatedDate || taskDate,
             userId: 'fPuPt4lGWJB1VJFHSkqi',
             })
             .then(() => {
@@ -106,6 +109,11 @@ export const AddTask = ({
                 setProject={setProject}
                 showProjectOverlay={showProjectOverlay}
                 setShowProjectOverlay={setShowProjectOverlay}
+            />
+            <TaskDate
+                setTaskDate={setTaskDate}
+                showTaskDate={showTaskDate}
+                setShowTaskDate={setShowTaskDate}
             />
             <input
                 className="add-task__content"
