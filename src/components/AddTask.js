@@ -3,6 +3,7 @@ import { FaRegListAlt, FaRegCalendarAlt } from 'react-icons/fa';
 import moment from 'moment';
 import { firebase } from '../firebase';
 import { useSelectedProjectValue } from '../context';
+import { ProjectOverlay } from './ProjectOverlay';
 
 export const AddTask = ({
     showAddTaskMain = true,
@@ -11,10 +12,9 @@ export const AddTask = ({
     setShowQuickAddTask,
 }) => {
     const [task, setTask] = useState('');
-    const [taskDate, setTaskDate] = useState('');
     const [project, setProject] = useState('');
     const [showMain, setShowMain] = useState(shouldShowMain);
-    const [showTaskDate, setShowTaskDate] = useState(false);
+    const [showProjectOverlay, setShowProjectOverlay] = useState(false);
 
     const { selectedProject } = useSelectedProjectValue();
 
@@ -38,7 +38,7 @@ export const AddTask = ({
             archived: false,
             projectId,
             task,
-            date: collatedDate || taskDate,
+            date: collatedDate,
             userId: 'fPuPt4lGWJB1VJFHSkqi',
             })
             .then(() => {
@@ -102,6 +102,11 @@ export const AddTask = ({
                 </div>
                 </>
             )}
+            <ProjectOverlay
+                setProject={setProject}
+                showProjectOverlay={showProjectOverlay}
+                setShowProjectOverlay={setShowProjectOverlay}
+            />
             <input
                 className="add-task__content"
                 aria-label="Enter your task"
@@ -128,10 +133,12 @@ export const AddTask = ({
                 data-testid="add-task-main-cancel"
                 onClick={() => {
                     setShowMain(false);
+                    setShowProjectOverlay(false);
                 }}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                     setShowMain(false);
+                    setShowProjectOverlay(false);
                     }
                 }}
                 aria-label="Cancel adding a task"
