@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useProjectsValue } from '../context';
 
 export const ProjectOverlay = ({
@@ -41,3 +42,6 @@ export const ProjectOverlay = ({
     );
 };
 
+ProjectOverlay.propTypes = {
+    projects: PropTypes.array,
+};
